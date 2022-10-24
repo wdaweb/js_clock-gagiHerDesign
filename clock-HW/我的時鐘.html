@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arvo&family=Fredoka+One&family=Gugi&family=Noto+Sans+TC:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&family=Vollkorn:wght@500&display=swap"
+      rel="stylesheet">
+    <style>
+      * {
+        font-family: 'Vollkorn', serif;
+      }
+
+      body {
+        overflow: hidden;
+      }
+
+      .pic0 {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 200;
+        background-size: contain;
+      }
+
+      .pic1 {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 100;
+        background-size: contain;
+      }
+
+      .pic2 {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: -1;
+        background-size: contain;
+      }
+
+      #showbox {
+        color: rgb(0, 0, 0);
+        font-size: 200px;
+        position: absolute;
+        bottom: -5%;
+        right: 1%;
+        transform: translate(-50%, -50%);
+      }
+
+      .clock {
+        width: 1920px;
+        height: 1080px;
+        transform: rotate(-90deg);
+      }
+
+      #hour {
+        width: 420px;
+        height: 10px;
+        background: rgba(218, 218, 218, 0.3);
+        position: absolute;
+        top: 66%;
+        left: 52%;
+        transform: translate(-50%, -50%);
+        border-radius: 5px;
+        /* 旋轉中心 */
+        transform-origin: left center;
+
+        z-index: 50;
+        animation-duration: 43200s;
+      }
+
+      .target-middle {
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 50%,
+            #fff 5%,
+            rgba(255, 255, 255, 0) 40%,
+            #fff 90%,
+            rgba(255, 255, 255, 0.50) 100%);
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translate(-50%, -50%);
+        z-index: 60;
+      }
+
+      #minute {
+        width: 1920px;
+        height: 3px;
+        background: rgb(209, 209, 209);
+        position: absolute;
+        top: 66%;
+        left: 52%;
+        transform: translate(-50%, -50%);
+        border-radius: 5px;
+        /* 旋轉中心 */
+        transform-origin: left center;
+        z-index: 40;
+        animation-duration: 3600s;
+      }
+
+      #second {
+        width: 2500px;
+        height: 2500px;
+
+        background: conic-gradient(rgb(0, 0, 0) 0,
+            rgba(0, 0, 0, 0.8) 5deg,
+            rgba(0, 0, 0, 0.1) 12deg,
+            rgba(0, 0, 0, 0.1) 15deg,
+            rgba(0, 0, 0, 0.8) 30deg,
+            rgb(0, 0, 0) 35deg,
+            rgb(0, 0, 0) 180deg,
+            rgba(0, 0, 0, 0.8) 185deg,
+            rgba(0, 0, 0, 0.1) 192deg,
+            rgba(0, 0, 0, 0.1) 195deg,
+            rgba(0, 0, 0, 0.8) 210deg,
+            rgb(0, 0, 0) 215deg);
+        position: absolute;
+        top: -50%;
+        left: -13%;
+        transform: translate(-50%, -50%);
+        /* 旋轉中心 */
+        transform-origin: center center;
+        animation-duration: 60s;
+      }
+
+      .animate {
+        animation-name: rotate;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .target-center {
+        width: 50px;
+        height: 50px;
+        background-color: rgb(223, 223, 223);
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 50%,
+            #fff 5%,
+            rgba(255, 255, 255, 0) 40%,
+            #fff 90%,
+            #fff 100%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+
+      .circular {
+        width: 100px;
+        height: 100px;
+        margin: 100px;
+        position: absolute;
+        top: 30%;
+        left: 60%;
+        transform: translate(-50%, -50%);
+        z-index: 200;
+
+      }
+
+      .circular path {
+        fill: none;
+      }
+
+      .circular svg {
+        display: block;
+        overflow: visible;
+        transition: 10s;
+        animation-name: trs;
+        animation: trs 10s ease-in infinite alternate;
+      }
+
+      @keyframes trs {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(720deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body onload="ShowTime()">
+    <img class="pic0" src="./hole.png">
+    <img class="pic1" src="./底圖.png" alt="底圖">
+    <img class="pic2" src="./底圖(last).png" alt="最後面底圖">
+    <div id="showbox"></div>
+
+    <div class="clock">
+      <div class="animate" id="hour">
+        <div class="target-middle"></div>
+      </div>
+      <div class="animate" id="minute"></div>
+      <div class="animate" id="second">
+        <div class="target-center"></div>
+      </div>
+    </div>
+
+    <!-- 測試環形文字 -->
+    <div class="circular">
+      <svg viewBox="0 0 100 100">
+        <path d="M 50 50 m -50 0 a 50 50 0 1 1 100 0 a 50 50 0 1 1 -100 0 z" id="circle" />
+        <text>
+          <textPath xlink:href="#circle">。gagiHerDesign。gagiHerDesign</textPath>
+        </text>
+      </svg>
+    </div>
+
+    <script>
+
+      const hoursHand = document.getElementById('hour')
+      const minutesHand = document.getElementById('minute')
+      const secondsHand = document.getElementById('second')
+      now = new Date();
+      h = now.getHours();
+      console.log('時:' + h);
+
+      m = now.getMinutes();
+      console.log('分:' + m);
+
+
+      function moveHands() {
+        const secs = now.getSeconds(),
+          mins = now.getMinutes() * 60,
+          hours = now.getHours() * 3600;
+
+        secondsHand.style.animationDelay = '-' + secs + 's';
+        minutesHand.style.animationDelay = '-' + mins + 's';
+        hoursHand.style.animationDelay = '-' + hours + 's';
+      }
+      moveHands();
+
+      function ShowTime() {
+        document.getElementById('showbox').innerHTML = h + ':' + m;
+        setTimeout('ShowTime()', 1000);
+      }
+    </script>
+  </body>
+
+</html>
